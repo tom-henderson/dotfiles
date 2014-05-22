@@ -64,6 +64,7 @@ alias "l=ls -lAGFh"
 alias "..=cd .."
 alias "grep=grep --colour"
 alias "st=open -a 'Sublime Text 2.app'"
+alias "django=python manage.py"
 
 # Firstclass
 alias "fcwho=ssh -p 2020 tom@apollo.pack.co.nz /home/tom/scr/fcwho | sort"
