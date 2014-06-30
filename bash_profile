@@ -73,11 +73,6 @@ alias "fcperf=ssh -p 2020 tom@apollo.pack.co.nz /home/tom/scr/fcperf"
 alias "fcputil=ssh -p 2020 tom@apollo.pack.co.nz /home/tom/bin/fcputil"
 alias "fcdu=ssh -p 2020 tom@apollo.pack.co.nz /home/tom/scr/fcdu"
 
-# Applications
-alias "synergy-start=synergys --config ~/.synergy.conf"
-alias "synergy-stop=killall synergys"
-alias "sickbeard=/Users/tom/Applications/sickbeard/Sickbeard.py"
-
 # Misc
 alias "wifi=/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -s"
 
@@ -90,9 +85,9 @@ newbranch()
 {
 	[[ $# > 0 ]] || return
 	branch=$1
-	#git branch ${branch}
-	#git checkout ${branch}
-	#git status
+	git branch ${branch}
+	git checkout ${branch}
+	git status
 	echo ${branch}
 }
 
@@ -112,13 +107,4 @@ uptime
 lastperiodics
 lastbackup 168  # Weekly SuperDuper Backup
 lastbackblaze 3 # Backblaze Status - can take about 3 hours to find new files
-
-
-##
-# Your previous /Users/tom/.bash_profile file was backed up as /Users/tom/.bash_profile.macports-saved_2013-03-27_at_09:07:50
-##
-
-# MacPorts Installer addition on 2013-03-27_at_09:07:50: adding an appropriate PATH variable for use with MacPorts.
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-# Finished adapting your PATH environment variable for use with MacPorts.
 
