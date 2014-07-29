@@ -95,7 +95,7 @@ newbranch()
 # Prompt
 
 # PS1 - Default interaction prompt
-PS1='\[$GREEN\][\u \[$YELLOW\]\w\[$GREEN\]]$ \[$nc\]'
+PS1='\[$GREEN\][\u \[$YELLOW\]\w\[$GREEN\]\[$BLUE\] $(git branch 2>/dev/null | grep '^*' | colrm 1 2)\[$GREEN\]]$ \[$nc\]'
 # PS2 - Continuation prompt
 PS2='\[$CYAN\]> \[$nc\]'
 
