@@ -46,9 +46,8 @@ export WOB nc
 # /opt/local/sbin       Installed by macports
 # /usr/local/mysql/bin  MySQL
 # $FIREBIRD_HOME/bin    Firebird (isql)
-# /Developer/Tools      Developer tools
 # ~/bin, ~/scr          Custom scripts & binaries
-PATH=$PATH:/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:$FIREBIRD_HOME/bin:/Developer/Tools:~/bin:~/scr
+PATH=$PATH:/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:$FIREBIRD_HOME/bin:~/bin:~/scr
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Python Path
