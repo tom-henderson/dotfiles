@@ -49,6 +49,9 @@ export WOB nc
 # ~/bin, ~/scr          Custom scripts & binaries
 PATH=$PATH:/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:$FIREBIRD_HOME/bin:~/bin:~/scr
 
+WORKON_HOME=~/.virtualenvs
+export $WORKON_HOME
+
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Python Path
 #
