@@ -51,6 +51,7 @@ PATH=$PATH:/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:$FIREBIRD_HOME/bi
 
 WORKON_HOME=~/.virtualenvs
 export $WORKON_HOME
+source /usr/local/bin/virtualenvwrapper.sh
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Python Path
