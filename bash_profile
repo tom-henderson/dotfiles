@@ -1,10 +1,4 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-# Bash profile settings
-# 
-# Last edit 2011-02-21
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Definitions
 export EDITOR=pico
 FIREBIRD_HOME=/Library/Frameworks/Firebird.framework/Resources
@@ -49,8 +43,7 @@ export WOB nc
 # ~/bin, ~/scr          Custom scripts & binaries
 PATH=$PATH:/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:$FIREBIRD_HOME/bin:~/bin:~/scr
 
-WORKON_HOME=~/.virtualenvs
-export $WORKON_HOME
+export WORKON_HOME=$HOME/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
