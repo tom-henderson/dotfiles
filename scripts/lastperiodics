@@ -1,0 +1,13 @@
+#!/bin/bash
+
+DAILY=`ls -al /var/log/daily.out | awk '{ print "Daily:", $6, $7 }'`
+WEEKLY=`ls -al /var/log/weekly.out | awk '{ print "Weekly:", $6, $7 }'`
+MONTHLY=`ls -al /var/log/monthly.out | awk '{ print "Monthly:", $6, $7 }'`
+
+# Standard output:
+#echo "  $DAILY"
+#echo " $WEEKLY"
+#echo "$MONTHLY"
+
+# Single line output:
+echo "$DAILY, $WEEKLY, $MONTHLY"

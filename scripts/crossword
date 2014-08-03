@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo -n "Please enter a word pattern to search for (use a . for unknowns): "
+read text
+
+echo `grep -w $text /usr/share/dict/words`

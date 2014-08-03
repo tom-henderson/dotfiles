@@ -1,0 +1,3 @@
+#!/bin/bash
+
+curl -s 'http://www.iheartquotes.com/api/v1/random?source=macintosh&max_lines=4&show_source=false&show_permalink=false' | grep -v '^$'

@@ -1,0 +1,7 @@
+#!/usr/bin/python
+
+import sys
+from base64 import b64encode
+
+for arg in sys.argv[1:]: 
+    print b64encode(arg)

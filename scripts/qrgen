@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=http://feedback.net.nz/imperiallane?s=qr
+# 	chs - Size of the image in pixels, in the format <width>x<height>
+# 	cht - Type of image: 'qr' means QR code.
+# 	chl - The data to encode. Must be URL-encoded.
+
+
+BASE_URL="https://chart.googleapis.com/chart"
+QR_SIZE="150x150"
+
+curl --output $1.png \
+     --data-urlencode "cht=qr" \
+     --data-urlencode "chs=$QR_SIZE" \
+     --data-urlencode "chl=http://feedback.net.nz/$1" \
+     $BASE_URL

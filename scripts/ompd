@@ -1,0 +1,18 @@
+#!/bin/bash
+
+cd ~/Pictures/OMPD
+
+DATETIME=`date "+%Y%m%d%H%M%S"`
+mkdir $DATETIME
+cd $DATETIME
+
+echo "Press ctrl+c to stop..."
+echo "Recording to ~/Pictures/OMPD/$DATETIME/"
+
+COUNTER=0
+while [ 1 ]; do
+    screencapture -m -x -tjpg screen-$COUNTER.jpg
+	/Users/tom/bin/isightcapture photo-$COUNTER.jpg
+    let "COUNTER+=1"
+    sleep 20
+done

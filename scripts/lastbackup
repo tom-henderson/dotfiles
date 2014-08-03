@@ -1,0 +1,27 @@
+#!/bin/bash
+
+USAGE="Usage: $0 <integer number of hours>"
+
+if [[ ! "$#" == 1 ]]
+then 
+    echo $USAGE
+    exit 1
+fi
+
+let "DISPLAYTHRESHOLD = $1 * 60 * 60" # Convert to seconds
+LASTBACKUP=`cat ~/.lastbackup`
+NOW=`date "+%s"`
+let "ELAPSEDTIME = $NOW - $LASTBACKUP"
+
+NC='\033[0m'
+
+if (( $ELAPSEDTIME > $DISPLAYTHRESHOLD ))
+then
+    COLOUR='\033[31m'
+else
+    COLOUR='\033[0m'
+fi
+
+NICEDATE=`date -r $LASTBACKUP "+%e %B at %k:%M"` # Format date nicely
+MESSAGE="Last backup: $COLOUR$NICEDATE$NC"
+echo -e $MESSAGE

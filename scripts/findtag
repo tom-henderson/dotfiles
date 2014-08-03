@@ -1,0 +1,7 @@
+#!/bin/bash
+
+[[ $@ ]] || { echo "Usage: findtag tag"; exit 1; }
+
+tag=$1
+
+mdfind "kMDItemUserTags == '${tag}'"

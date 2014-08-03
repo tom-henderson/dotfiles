@@ -1,0 +1,32 @@
+#!/bin/bash
+
+function progressbar() {
+	if (( $1 == 1 ))
+	then
+		echo -ne "  0% [                                                  ]\r"
+	fi
+    local bar="================================================="
+    local length=`echo "scale=2; $1 / $2" | bc -q 2>/dev/null`
+    local percent=`echo "scale=2; $length * 50" | bc -q 2>/dev/null`
+	local rounded=$(printf %.0f $percent)
+	local progress=$(($rounded*2))
+	if (( $progress < 99))
+	then
+		padding="  "
+	else
+		padding=" "
+	fi
+	echo -ne "${padding}`printf "%02d" $progress`% [${bar:0:$rounded}\r"
+}
+
+
+for (( i=1; i<255; i++))
+do
+	#length=`echo "scale=2; $i / 254" | bc -q 2>/dev/null`
+	#percent=`echo "scale=2; $length * 50" | bc -q 2>/dev/null`
+	#rounded=$(printf %.0f $percent)
+	#progress=$(($rounded*2))
+	#echo -ne " `printf "%02d" $progress`% [${progressbar:0:$rounded}\r"
+	progressbar $i 254
+done
+echo -ne '\n'

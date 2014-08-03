@@ -1,0 +1,214 @@
+#!/bin/bash
+################################################################
+function usagemsg_fortune {
+  echo "
+Program: fortune
+
+This script displays a fortune from either the file specified by 
+the \"FileName\" parameter or by default from the \${HOME}/.fortunes
+file.  After displaying the fortune, the fortune command exits. 
+
+Usage: ${1##*/} [-?vVqdf] [-n #] [FileName ]
+  Where:
+    -v = Verbose mode - displays fortune file info
+    -V = Very Verbose Mode - debug output displayed
+    -q = Quiet mode - fortune not displayed
+    -d = Data mode - displays the fortune file info in record format
+    -f = Display the fortune number at the end of the fortune
+    -n # = Display a specific fortune by it's numerical position 
+           in the fortune data file
+
+    FileName = FileName containing fortunes (Default: \${HOME}/.fortunes)
+
+Author: Dana French (dfrench@mtxia.com) Copyright 2004
+\"AutoContent\" enabled
+"
+}
+################################################################
+#### 
+#### Description:
+#### 
+#### This script reads data from a "fortunes" formatted file
+#### and writes a "stanza" of information from that file to
+#### standard output.  Each stanza of information from the
+#### "fortunes" file is delimited by a percent sign (%) on a
+#### line by itself. 
+#### 
+#### Assumptions:
+#### 
+#### This script assumes the fortunes data file contains
+#### lines of text, delimited into stanzas by a percent sign
+#### (%) on a line by itself.  Each stanza represents a
+#### "fortune" that is displayed randomly by this script.
+#### 
+#### Dependencies:
+#### 
+#### This script is dependent upon the unix utilities "grep",
+#### "cut", and "sed".  These utilities must be in the PATH
+#### in order for this script to work properly.
+#### 
+#### Products:
+#### 
+#### This script reads a data file and outputs a random stanza of
+#### information from the data file.  Options to this script
+#### can control which stanza is displayed, and information about
+#### the randomly selected stanza.
+#### 
+#### Configured Usage:
+#### 
+#### This script can be executed from the command line,
+#### startup script, or as a function from within another
+#### script.  The most typical usage would be from a startup
+#### script. 
+#### 
+#### Details:
+#### 
+################################################################
+function fortune {
+  typeset VERSION="1.1"
+  typeset TRUE="1"
+  typeset FALSE="0"
+  typeset EXITCODE="0"
+  typeset DATAMODE="${FALSE}"
+  typeset QUIET="${FALSE}"
+  typeset VERBOSE="${FALSE}"
+  typeset VERYVERB="${FALSE}"
+  typeset FORTBYNO="${FALSE}"
+  typeset FORTNUMB="0"
+  typeset FORTDISP="${FALSE}"
+  typeset ARY
+  typeset NUM
+
+  while getopts ":vVqdfn#" OPTION
+  do
+      case "${OPTION}" in
+          'n') FORTBYNO="${TRUE}"
+               FORTNUMB="${OPTARG}";;
+          'd') DATAMODE="${TRUE}";;
+          'f') FORTDISP="${TRUE}";;
+          'q') QUIET="${TRUE}";;
+          'v') VERBOSE="${TRUE}";;
+          'V') VERYVERB="${TRUE}";;
+          '?') usagemsg_fortune "${0}" && exit 1 ;;
+          ':') usagemsg_fortune "${0}" && exit 1 ;;
+      esac
+  done
+   
+  shift $(( ${OPTIND} - 1 ))
+  
+  typeset FORTFILE="${1:-${HOME}/.fortunes}"
+
+  trap "usagemsg_fortune ${0}" EXIT
+  if [[ "_${FORTFILE}" = "_" ]]
+  then
+    (( QUIET == FALSE )) &&
+        echo "ERROR: Fortunes Filename not specified" >&2
+    exit 3
+  fi
+  trap "-" EXIT
+  
+  (( VERBOSE  == TRUE )) && echo "# Version: ${VERSION}"
+  (( VERYVERB == TRUE )) && set -x
+
+################################################################
+
+#### 
+#### Check to see if the fortunes data file is readable, if not 
+#### issue an error message and exit.
+#### 
+
+  if [[ ! -r ${FORTFILE} ]]
+  then
+    echo "# ERROR: Can't read fortunes FILE \"${FORTFILE}\"!" >&2
+    return 1
+  fi
+
+#### 
+#### Obtain a list of beginning line numbers for each
+#### fortune.  Each fortune is delimited by a line beginning
+#### with one or more "%".  Save the beginning line numbers
+#### to an array for later use.
+#### 
+
+  ARY=( 1 $( egrep -n '^%%*[ 	]*' "${FORTFILE}" | cut -d: -f1 ) )
+
+#### 
+#### If there are no fortunes in the data file, issue an
+#### error message and exit. 
+#### 
+
+  if (( ${#ARY[*]} == 0 ))
+  then
+    echo "# ERROR: No fortunes in FILE \"${FORTFILE}\"!" >&2
+    return 2
+  fi
+
+####
+#### Randomly select a fortune number by chosing and array element 
+#### containing the beginning line number of a fortune from the data 
+#### file.
+####
+
+  (( NUM = RANDOM % ${#ARY[*]} ))
+
+####
+#### If the -n option was specified on the command line, then compare the
+#### fortune number specfied by the user against the number of fortunes in
+#### the data file.  If the user specfied number is greater than the number
+#### of fortunes in the data file, issue an error message and return with an
+#### unsuccessful return code; otherwise set the fortune number to the
+#### user specified number.
+####
+
+  if (( FORTBYNO == TRUE ))
+  then
+      if (( FORTNUMB < 0 )) || (( FORTNUMB > ( ${#ARY[*]} - 1 ) ))
+      then
+          echo "# ERROR: Invalid fortune number" >&2
+          echo "# ERROR: Valid fortune numbers: 0 - $(( ${#ARY[*]} - 1 ))" >&2
+          return 3
+      fi
+      NUM="${FORTNUMB}"
+  fi
+
+#### If VERBOSE mode is on, display some information about the
+#### selected fortune.
+
+  (( VERBOSE == TRUE )) && echo -E "# Fortune File: ${FORTFILE}"
+  (( VERBOSE == TRUE )) && echo "# No. of fortunes in fortunes file: ${#ARY[*]}"
+  (( VERBOSE == TRUE )) && echo "# Fortune No.: ${NUM}"
+  (( VERBOSE == TRUE )) && echo "# Beginning line No.: ${ARY[NUM]}"
+
+#### 
+#### If the use specified DATA mode, display some information about
+#### the selected fortune formatted as a data record separated by 
+#### colon ":" delimeters.  The fortune itself is not displayed.
+#### 
+
+  if (( DATAMODE == TRUE ))
+  then
+      echo "# fortfile:fortcnt:fortnumb:fortline" >&2
+      echo -E "${FORTFILE}:${#ARY[*]}:${NUM}:${ARY[NUM]}"
+      return 0
+  fi
+
+#### If QUIET mode was specified by the user on the command line,
+#### do not display the fortune, simply return with a successful
+#### return code.
+
+  (( QUIET == TRUE )) && return 0
+
+#### 
+#### Display one single fortune by using beginning line number of
+#### the fortune and displaying all lines until the next
+#### fortune delimeter "%" is found, or end of file.
+#### 
+
+  (( FORTDISP == TRUE )) && echo "Fortune ${NUM} of ${#ARY[*]}"
+  sed -e "${ARY[NUM]},/^%%*[ 	]*$/ !d;s/^%.*//" "${FORTFILE}"
+
+ return 0
+}
+################################################################
+
+fortune "${@}"

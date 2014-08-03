@@ -1,0 +1,9 @@
+#!/bin/bash
+# Generate a random password.
+
+# Edit here to define password length:
+CHARS=8
+
+# First sed strips non alphanumeric characters.
+# Second sed strips ambiguous characters.
+head < /dev/random | uuencode -m - | sed 's/[^A-z0-9]//g' | sed 's/[1iIlL0oOQ2Z5Ssz]//g' | tail -n 3 | head -n 1 | cut -c -$CHARS

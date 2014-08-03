@@ -1,0 +1,26 @@
+#!/bin/bash
+# Show current ip address for each interface
+
+# Ethernet
+ipconfig getifaddr en0 &> /dev/null
+if [ $? = 0 ]; then
+    ipconfig getifaddr en0 | awk '{print "Ethernet: " $0 }'
+else
+    echo -e "Ethernet: ${RED}Not Connected${nc}"
+fi
+
+# Airport
+ipconfig getifaddr en1 &> /dev/null
+if [ $? = 0 ]; then
+    ssid=`/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I | grep '[^B]SSID' | cut -c 18-`
+    airport=`ipconfig getifaddr en1 | awk '{print "Airport: " $0 }'`
+    echo -e " "$airport ${YELLOW}$ssid${nc}
+else
+    echo -e " Airport: ${RED}Not Connected${nc}"
+fi
+
+# External IP
+#curl -s www.whatismyip.com/automation/n09230945.asp | awk '{print "External: " $0 }'
+curl -s http://ifconfig.me/ip | awk '{print "External: " $0 }'
+# Prints hostname:
+#http://ifconfig.me/host

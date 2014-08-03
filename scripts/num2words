@@ -1,0 +1,78 @@
+#!/usr/bin/python
+
+import sys
+
+def bigNumbers( n, lowerBound, theWord ):
+    if n % lowerBound == 0:
+        return numberAsWords( n / lowerBound ) + ' ' + theWord
+    elif n - ( n / lowerBound * lowerBound ) < max( lowerBound / 1000, 100 ):
+        return numberAsWords( n / lowerBound ) + ' ' + theWord + ' and ' + numberAsWords( n - ( n / lowerBound * lowerBound ) )
+    else:
+        return numberAsWords( n / lowerBound ) + ' ' + theWord + ', ' + numberAsWords( n - ( n / lowerBound * lowerBound ) )
+
+
+def numberAsWords(n):
+    """Takes an integer and returns that number in words. Input must be no more than 15 digits in length."""
+    
+    bignums = ('hundred', 'thousand', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion', 'sextillion', 'septillion')
+    tens = ('ten','twenty','thirty','fourty','fifty','sixty','seventy','eighty','ninety')
+    teens = ('eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen')
+    digits = ('zero','one','two','three','four','five','six','seven','eight','nine')
+
+    # greater than 9999999999
+    if n > 999999999999999 or n < -999999999999999:
+        return 'Sorry, I can\'t count that high. Try again with fewer digits.'
+
+    # Negative numbers:
+    if n < 0:
+        return 'minus ' + numberAsWords( n * - 1 )
+
+    # For future reference, as per http://en.wikipedia.org/wiki/Orders_of_magnitude
+    # Septillion  1000000000000000000000000
+    # Sextillion  1000000000000000000000
+    # Quintillion 1000000000000000000
+    # Quadrillion 1000000000000000
+    
+    # Trillions
+    if n >= 1000000000000 and n < 1000000000000000:
+        return bigNumbers( n, 1000000000000, 'trillion' )
+
+    # Billions
+    if n >= 1000000000 and n < 1000000000000:
+        return bigNumbers( n, 1000000000, 'billion' )
+
+    # Millions
+    if n >= 1000000 and n < 1000000000:
+        return bigNumbers( n, 1000000, 'million' )
+
+    # Thousands
+    if n >= 1000 and n < 1000000:
+        return bigNumbers( n, 1000, 'thousand' )
+            
+    # Hundreds
+    if n >= 100 and n < 1000:
+        return bigNumbers( n, 100, 'hundred' )
+    
+    # greater than 10, less than 20
+    if n > 10 and n < 20:
+        return teens[n - 11]
+
+    # less than 10
+    if n < 10:
+        return digits[n]
+
+    # multiple of 10
+    if n%10 == 0:
+        return tens[(n/10)-1]
+    
+    # else (2 digit numbers from 21 to 99 not multiples of 10)
+    return tens[(n/10)-1] + ' ' + digits[n%10]
+
+if len(sys.argv) > 1:
+    for i in sys.argv[1:]:
+        try:
+            print numberAsWords(int(i))
+        except:
+            print 'Can\'t convert', i, 'to a words. Input must be an integer.'
+else:
+    print 'Usage:', sys.argv[0], '[number] [...]'

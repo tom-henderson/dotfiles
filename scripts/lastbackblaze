@@ -1,0 +1,33 @@
+#!/bin/bash
+
+USAGE="Usage: $0 <integer number of hours>"
+
+if [[ ! "$#" == 1 ]]
+then 
+    echo $USAGE
+    exit 1
+fi
+
+let "DISPLAYTHRESHOLD = $1 * 60 * 60" # Convert to seconds
+
+BBPATH=/Library/Backblaze/bzdata/bzreports
+LASTBACKUP=$(cat $BBPATH/bzstat_lastbackupcompleted.xml | grep lastbackupcompleted | cut -d \" -f 2 | cut -c -10)
+FILESREMAINING=$(cat $BBPATH/bzstat_remainingbackup.xml | grep remainingnumfilesforbackup | cut -d \" -f 2 | cut -c -10)
+BYTESREMAINING=$(cat $BBPATH/bzstat_remainingbackup.xml | grep remaining | cut -d \" -f 4 | cut -c -10)
+XBYTESREMAINING=$(/Users/tom/scr/byteme $BYTESREMAINING)
+
+NOW=$(date "+%s")
+let "ELAPSEDTIME = $NOW - $LASTBACKUP"
+
+NC='\033[0m'
+
+if (( ${ELAPSEDTIME} > ${DISPLAYTHRESHOLD} ))
+then
+    COLOUR='\033[31m'
+else
+    COLOUR='\033[0m'
+fi
+
+NICEDATE=`date -r ${LASTBACKUP} "+%e %B at %k:%M"` # Format date nicely
+MESSAGE="Backblaze synced at: ${COLOUR}${NICEDATE}${NC} (${FILESREMAINING} files / ${XBYTESREMAINING} remaining)"
+echo -e ${MESSAGE}
