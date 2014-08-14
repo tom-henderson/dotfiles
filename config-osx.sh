@@ -13,6 +13,11 @@ defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 # Disable automatic termination of inactive apps
 #defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 
+# Appearance: Graphite
+# Highlight: Graphite
+# Sidebar Icon Size: Small
+
+# 
 
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
@@ -111,7 +116,7 @@ defaults write com.apple.dock show-process-indicators -bool true
 defaults write com.apple.dock showhidden -bool true
 
 # Enable the 2D Dock
-defaults write com.apple.dock no-glass -bool true
+# defaults write com.apple.dock no-glass -bool true
 
 # Automatically hide and show the Dock
 defaults write com.apple.dock autohide -bool true
