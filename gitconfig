@@ -11,3 +11,5 @@
 	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
 	lg = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	wd = diff --word-diff-regex=.
+[credential]
+	helper = osxkeychain
