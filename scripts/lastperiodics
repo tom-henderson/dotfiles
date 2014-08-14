@@ -1,8 +1,20 @@
 #!/bin/bash
 
-DAILY=`ls -al /var/log/daily.out | awk '{ print "Daily:", $6, $7 }'`
-WEEKLY=`ls -al /var/log/weekly.out | awk '{ print "Weekly:", $6, $7 }'`
-MONTHLY=`ls -al /var/log/monthly.out | awk '{ print "Monthly:", $6, $7 }'`
+if [[ -e /var/log/daily.out ]]; then
+	DAILY=`ls -al /var/log/daily.out | awk '{ print "Daily:", $6, $7 }'`
+else
+	DAILY="Daily: never"
+fi
+if [[ -e /var/log/weekly.out ]]; then
+	WEEKLY=`ls -al /var/log/weekly.out | awk '{ print "Weekly:", $6, $7 }'`
+else
+	WEEKLY="Weekly: never"
+fi
+if [[ -e /var/log/monthly.out ]]; then
+	MONTHLY=`ls -al /var/log/monthly.out | awk '{ print "Monthly:", $6, $7 }'`
+else
+	MONTHLY="Monthly: never"
+fi
 
 # Standard output:
 #echo "  $DAILY"

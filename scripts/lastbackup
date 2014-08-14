@@ -8,6 +8,10 @@ then
     exit 1
 fi
 
+if [[ ! -e ~/.lastbackup ]]; then
+	exit 1
+fi
+
 let "DISPLAYTHRESHOLD = $1 * 60 * 60" # Convert to seconds
 LASTBACKUP=`cat ~/.lastbackup`
 NOW=`date "+%s"`

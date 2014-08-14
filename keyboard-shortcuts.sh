@@ -19,6 +19,6 @@ defaults write -g NSUserKeyEquivalents '{
 	"System Preferences..."="$@,";
 }'
 
-defaults write -app Chrome NSUserKeyEquivalents '{
+defaults write -app Google\ Chrome NSUserKeyEquivalents '{
 	"Print Using System Dialog..."="@P";
 }'
