@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # System Preferences Keyboard Shortcuts
 
 # @ = Command
