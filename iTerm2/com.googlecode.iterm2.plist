@@ -82,60 +82,20 @@
 	<true/>
 	<key>MaxVertically</key>
 	<false/>
-	<key>NSColorPanelMode</key>
-	<string>7</string>
-	<key>NSColorPanelVisibleSwatchRows</key>
-	<integer>10</integer>
-	<key>NSColorPickerPageableNameListDefaults</key>
-	<string>1Terminal</string>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/dotfiles/iTerm2</string>
+	<string>~/dotfiles</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
 	<string></string>
 	<key>NSScrollAnimationEnabled</key>
 	<false/>
-	<key>NSTableView Columns KeyBingingTable</key>
-	<array>
-		<data>
-		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
-		hAErATCG
-		</data>
-		<string>198</string>
-		<data>
-		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
-		hAErATGG
-		</data>
-		<string>302</string>
-	</array>
-	<key>NSTableView Hidden Columns KeyBingingTable</key>
-	<array/>
-	<key>NSTableView Sort Ordering KeyBingingTable</key>
-	<array/>
-	<key>NSToolbar Configuration Terminal Toolbar</key>
-	<dict>
-		<key>TB Display Mode</key>
-		<integer>1</integer>
-		<key>TB Icon Size Mode</key>
-		<integer>1</integer>
-		<key>TB Is Shown</key>
-		<integer>0</integer>
-		<key>TB Size Mode</key>
-		<integer>1</integer>
-	</dict>
-	<key>NSWindow Frame NSColorPanel</key>
-	<string>427 382 214 284 0 0 1920 1058 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>2112 162 924 485 1920 0 1280 800 </string>
+	<string>269 110 924 485 0 0 1280 800 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>2560 2 640 774 1920 0 1280 778 </string>
+	<string>4 91 760 676 0 0 1280 778 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>4 0 1912 1058 0 0 1920 1058 </string>
-	<key>NSWindow Frame iTerm Window 2</key>
-	<string>705 26 490 676 0 0 1280 778 </string>
-	<key>NSWindow Frame iTerm Window 3</key>
-	<string>743 81 490 676 0 0 1280 778 </string>
+	<string>642 0 638 778 0 0 1280 778 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -1615,8 +1575,10 @@
 			<string>/Users/tom</string>
 		</dict>
 	</array>
-	<key>OnlyWhenMoreTabs</key>
+	<key>NoSyncNeverRemindPrefsChangesCopy</key>
 	<true/>
+	<key>OnlyWhenMoreTabs</key>
+	<false/>
 	<key>OpenArrangementAtStartup</key>
 	<false/>
 	<key>OpenBookmark</key>
@@ -1663,7 +1625,7 @@
 	<key>PrefsCustomFolder</key>
 	<string>/Users/tom/dotfiles/iTerm2</string>
 	<key>PromptOnQuit</key>
-	<true/>
+	<false/>
 	<key>QuitWhenAllWindowsClosed</key>
 	<false/>
 	<key>RightCommand</key>
@@ -1677,7 +1639,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2014-08-13T00:38:48Z</date>
+	<date>2014-08-13T23:00:04Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>

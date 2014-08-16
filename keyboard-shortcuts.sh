@@ -12,13 +12,7 @@
 # Disable a shortcut by assigning \u200b (ZERO WIDTH SPACE)
 
 defaults write -g NSUserKeyEquivalents '{
-	"Minimize"="\u200b";
-	"Minimize All"="\u200b";
-	"Show Help menu"="@/";
-	"Save as PDF…"="@P";
-	"System Preferences..."="$@,";
 }'
 
 defaults write -app Google\ Chrome NSUserKeyEquivalents '{
-	"Print Using System Dialog..."="@P";
 }'

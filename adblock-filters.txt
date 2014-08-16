@@ -1,3 +1,4 @@
+www.reddit.com##.promoted.promotedlink
 ##IFRAME[id*="ndn_frame"]
 @@|http://tom.henderson.net.nz/|$document
 @@|https://www.hackerguardian.com/sas/app/overview|$document

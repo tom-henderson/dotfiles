@@ -1,7 +1,6 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Definitions
 export EDITOR=pico
-FIREBIRD_HOME=/Library/Frameworks/Firebird.framework/Resources
 
 # Colours
 black=$'\[\e[30m'
@@ -34,32 +33,20 @@ export BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE
 export WOB nc
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-# Path
-#
-# /opt/local/bin        Installed by macports
-# /opt/local/sbin       Installed by macports
-# /usr/local/mysql/bin  MySQL
-# $FIREBIRD_HOME/bin    Firebird (isql)
-# ~/bin, ~/scr          Custom scripts & binaries
-PATH=$PATH:/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:$FIREBIRD_HOME/bin:~/bin:~/scr
+# Path & Environment
+
+PATH=$PATH:~/scr
 
 export WORKON_HOME=$HOME/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-# Python Path
-#
-# /Users/tom/lib/python Custom python libs
-
-export PYTHONPATH='/Users/tom/lib/python/'
-
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Useful aliases
 alias "ls=ls -G"
-alias "l=ls -lAGFh"
+alias "l=ls -lGFh"
 alias "..=cd .."
 alias "grep=grep --colour"
-alias "st=open -a 'Sublime Text 2.app'"
+alias "st=open -a 'Sublime Text.app'"
 alias "django=python manage.py"
 
 # Firstclass
