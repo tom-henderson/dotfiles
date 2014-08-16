@@ -1,0 +1,7 @@
+##IFRAME[id*="ndn_frame"]
+@@|http://tom.henderson.net.nz/|$document
+@@|https://www.hackerguardian.com/sas/app/overview|$document
+@@||chrome-extension://*^$document
+@@||portal.pack.net.nz/$document
+http://www.aatravel.co.nz/client_sites/index.php?site=www.falls.co.nz&page=js/fullscreen.js
+
