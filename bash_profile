@@ -32,6 +32,8 @@ export black red green yellow blue magenta cyan white
 export BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE
 export WOB nc
 
+export myemail="tomhenderson@mac.com"
+
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Path & Environment
 
@@ -72,6 +74,10 @@ newbranch()
 	git checkout ${branch}
 	git status
 	echo ${branch}
+}
+
+grm() {
+	git rm $(git ls-files --deleted)
 }
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
