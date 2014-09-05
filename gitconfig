@@ -13,3 +13,6 @@
 	wd = diff --word-diff-regex=.
 [credential]
 	helper = osxkeychain
+[diff "scpt"]
+  textconv = osadecompile
+  binary=true
