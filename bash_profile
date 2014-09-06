@@ -60,6 +60,7 @@ alias "fcdu=ssh -p 2020 tom@apollo.pack.co.nz /home/tom/scr/fcdu"
 
 # Misc
 alias "wifi=/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -s"
+alias "please=sudo !!"
 
 # Silly
 alias "hardwork=cat /dev/random | hexdump -C | grep 'ca fe'"
