@@ -1,0 +1,6 @@
+#!/bin/bash
+
+domain="tomhenderson"
+token="dc0aebcd-4c7e-451a-85d0-e932133926c3"
+ip=""
+curl "https://www.duckdns.org/update?domains=${domain}&token=${token}&ip=${ip}" -s -o /dev/null
