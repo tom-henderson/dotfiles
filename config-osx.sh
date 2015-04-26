@@ -192,6 +192,12 @@ defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 # Enable the debug menu in Disk Utility
 defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
 
+# Disable inline attachments in Mail
+defaults write com.apple.mail DisableInlineAttachmentViewing -bool yes
+
+# Disable emojii replacement in Messages
+defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticEmojiSubstitutionEnablediMessage" -bool false
+
 ###############################################################################
 # Terminal                                                                    #
 ###############################################################################
