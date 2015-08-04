@@ -56,7 +56,6 @@ class Interfaces(object):
 
         return s
 
-
     def get_interfaces(self):
         interfaces = []
         data = subprocess.check_output(
@@ -100,7 +99,9 @@ class Interfaces(object):
                     ),
                     shell=True
                 )
-                fail = "{} en2 is not a Wi-Fi interface.".format(interface['interface'])
+                fail = "{} en2 is not a Wi-Fi interface.".format(
+                    interface['interface']
+                )
                 interface['wireless'] = fail not in networks
             except:
                 interface['wireless'] = False
@@ -116,12 +117,10 @@ class Interfaces(object):
 
         return interfaces
 
-
     def get_external_ip(self):
         url = "http://ip-api.com/json"
         data = json.loads(urllib2.urlopen(url).read())
         return data['query']
-
 
     def print_data(self):
         if args.external:
@@ -135,7 +134,7 @@ class Interfaces(object):
                         interface['name'],
                         interface['ip'],
                     )
-                else :
+                else:
                     print "{:>8}: {} {}".format(
                         interface['name'],
                         interface['ip'],
