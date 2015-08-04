@@ -5,9 +5,19 @@ import urllib2
 import json
 import sys
 import datetime
+import argparse
 from pprint import pprint
 
 LOG_FILE = '/Users/tom/.ips.log'
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-a', '--all',
+                    help="show all interfaces, including disconnected",
+                    action='store_true')
+parser.add_argument('-e', '--external',
+                    help="just show the external IP",
+                    action='store_true')
+args = parser.parse_args()
 
 
 class Interfaces(object):
@@ -114,6 +124,10 @@ class Interfaces(object):
 
 
     def print_data(self):
+        if args.external:
+            print self.external_ip
+            return True
+
         for interface in self.interfaces:
             if 'ip' in interface.keys():
                 if not interface['wireless']:
@@ -127,11 +141,11 @@ class Interfaces(object):
                         interface['ip'],
                         self.colour_string(interface['ssid'], 'yellow')
                     )
-            # else:
-            #     print "{:>8}: {}".format(
-            #         interface['name'],
-            #         self.colour_string("Not Connected", 'red')
-            #     )
+            elif args.all:
+                print "{:>8}: {}".format(
+                    interface['name'],
+                    self.colour_string("Not Connected", 'red')
+                )
         print "External: {}".format(self.external_ip)
 
     def log_data(self, log_file):
