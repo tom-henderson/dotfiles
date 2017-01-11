@@ -193,7 +193,7 @@ defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
 
 # Disable inline attachments in Mail
-defaults write com.apple.mail DisableInlineAttachmentViewing -bool yes
+defaults write com.apple.mail DisableInlineAttachmentViewing -bool no
 
 # Disable emojii replacement in Messages
 defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticEmojiSubstitutionEnablediMessage" -bool false
