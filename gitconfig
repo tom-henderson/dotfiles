@@ -1,11 +1,14 @@
 [user]
 	name = Tom Henderson
 	email = tomhenderson@mac.com
+
 [filter "media"]
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
+
 [push]
 	default = simple
+
 [alias]
 	lol = log --graph --decorate --pretty=oneline --abbrev-commit
 	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
@@ -16,6 +19,6 @@
 	helper = osxkeychain
 
 [diff "scpt"]
-  textconv = osadecompile
-  binary=true
+	textconv = osadecompile
+	binary=true
 

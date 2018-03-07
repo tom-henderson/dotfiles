@@ -3,12 +3,25 @@ PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH:~/scr:~/bin"
 
 export EDITOR=pico
 
-export WORKON_HOME=$HOME/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
+# export WORKON_HOME=$HOME/.virtualenvs
+# source /usr/local/bin/virtualenvwrapper.sh
 
 export PYTHONDONTWRITEBYTECODE=1
 
 source ~/.tokens
+
+# Color man page output
+export GROFF_NO_SGR=1
+man() {
+    env LESS_TERMCAP_mb=$'\E[01;31m'   \
+    LESS_TERMCAP_md=$'\E[01;38;5;74m'  \
+    LESS_TERMCAP_me=$'\E[0m'           \
+    LESS_TERMCAP_se=$'\E[0m'           \
+    LESS_TERMCAP_so=$'\E[38;5;246m'    \
+    LESS_TERMCAP_ue=$'\E[0m'           \
+    LESS_TERMCAP_us=$'\E[04;38;5;146m' \
+    man "$@"
+}
 
 # Useful aliases
 alias "ls=ls -G"
@@ -37,24 +50,8 @@ alias git-yolo='git commit -am "$(curl -s http://whatthecommit.com/index.txt)"'
 
 alias "eztv=~/Documents/Github/eztv/eztv-show-status.py"
 
-# Git
-newbranch()
-{
-	[[ $# > 0 ]] || return
-	branch=$1
-	git branch ${branch}
-	git checkout ${branch}
-	git status
-	echo ${branch}
-}
-
 grm() {
 	git rm $(git ls-files --deleted)
-}
-
-grevert() {
-    git stash save --keep-index
-    git stash drop
 }
 
 gitlines() {
@@ -74,19 +71,6 @@ new-django-project() {
     cd ${project}
     python manage.py migrate
     python manage.py runserver
-}
-
-# Color man page output
-export GROFF_NO_SGR=1
-man() {
-    env LESS_TERMCAP_mb=$'\E[01;31m'   \
-    LESS_TERMCAP_md=$'\E[01;38;5;74m'  \
-    LESS_TERMCAP_me=$'\E[0m'           \
-    LESS_TERMCAP_se=$'\E[0m'           \
-    LESS_TERMCAP_so=$'\E[38;5;246m'    \
-    LESS_TERMCAP_ue=$'\E[0m'           \
-    LESS_TERMCAP_us=$'\E[04;38;5;146m' \
-    man "$@"
 }
 
 # Prompt
