@@ -1,43 +1,15 @@
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-# Definitions
-export EDITOR=pico
-
-# Colours
-black=$'\[\e[30m'
-red=$'\e[31m'
-green=$'\e[32m'
-yellow=$'\e[33m'
-blue=$'\e[34m'
-magenta=$'\e[35m'
-cyan=$'\e[36m'
-white=$'\e[37m'
-
-# Bold colours
-BLACK=$'\e[1;30m'
-RED=$'\e[1;31m'
-GREEN=$'\e[1;32m'
-YELLOW=$'\e[1;33m'
-BLUE=$'\e[1;34m'
-MAGENTA=$'\e[1;35m'
-CYAN=$'\e[1;36m'
-WHITE=$'\e[1;37m'
-
-# No Color (reset)
-nc=$'\e[0m'
-
-export black red green yellow blue magenta cyan white
-export BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE
-export WOB nc
-
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Path & Environment
+PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH:~/scr:~/bin"
 
-PATH=$PATH:~/scr:~/bin
+export EDITOR=pico
 
 export WORKON_HOME=$HOME/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
 
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+export PYTHONDONTWRITEBYTECODE=1
+
+source ~/.tokens
+
 # Useful aliases
 alias "ls=ls -G"
 alias "l=ls -lGFh"
@@ -46,8 +18,7 @@ alias "grep=grep --colour"
 alias "st=open -a 'Sublime Text.app'"
 alias "django=python manage.py"
 alias "pds=python -m smtpd -n -c DebuggingServer localhost:1025"
-
-alias "sw-deploy=ssh django '/opt/shaky-wholesale/codeship-deploy.sh'"
+alias "activate=source .env/bin/activate"
 
 # Firstclass
 alias "fcwho=ssh -p 2020 tom@apollo.pack.co.nz /home/tom/scr/fcwho | sort"
@@ -58,17 +29,13 @@ alias "fcdu=ssh -p 2020 tom@apollo.pack.co.nz /home/tom/scr/fcdu"
 
 # Misc
 alias "wifi=/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -s"
-alias "please=sudo !!"
 
 # Silly
 alias "hardwork=cat /dev/random | hexdump -C | grep 'ca fe'"
 alias "excuse=telnet bofh.engr.wisc.edu 666"
 alias git-yolo='git commit -am "$(curl -s http://whatthecommit.com/index.txt)"'
 
-eztv()
-{
-    ~/Documents/Github/eztv/eztv-show-status.py
-}
+alias "eztv=~/Documents/Github/eztv/eztv-show-status.py"
 
 # Git
 newbranch()
@@ -109,64 +76,7 @@ new-django-project() {
     python manage.py runserver
 }
 
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-# Prompt
-
-
-git_info()
-{
-    GIT="$(git branch 2>/dev/null | grep '^*' | colrm 1 2)"
-    if [[ ${GIT} != "" ]]; then
-        GIT="[${GIT}]"
-    fi
-}
-
-setup_prompt()
-{
-    readonly FG_RED="$(tput setaf 1)"
-    readonly FG_ORANGE="$(tput setaf 9)"
-    readonly FG_YELLOW="$(tput setaf 3)"
-    readonly FG_GREEN="$(tput setaf 2)"
-    readonly FG_BLUE="$(tput setaf 4)"
-    readonly FG_CYAN="$(tput setaf 6)"
-    readonly FG_MAGENTA="$(tput setaf 5)"
-    readonly FG_VIOLET="$(tput setaf 13)"
-
-    readonly RESET="$(tput sgr0)"
-
-    SYMBOL=$1
-
-    # Not sure why this isn't working.
-    # Something must be resetting $? before it runs
-    if [ $? -eq 0 ]; then
-        PROMPT_COLOUR=${FG_GREEN}
-    else
-        PROMPT_COLOUR=${FG_RED}
-    fi
-
-    # PS1 - Default prompt
-     PS1="${FG_GREEN}[\u ${FG_YELLOW}\w${FG_GREEN}]"
-    PS1+="${FG_BLUE}$(git_info)"     # Git
-    PS1+="\n"
-    PS1+="${PROMPT_COLOUR}${SYMBOL}" # Prompt symbol
-    PS1+="${RESET} "                 # Reset colours
-}
-
-setup_prompt "⚡"
-unset setup_prompt
-
-# Something above isn't working>>>
-PS1='\[$GREEN\][\u \[$YELLOW\]\w\[$GREEN\]\[$BLUE\] $(git branch 2>/dev/null | grep '^*' | colrm 1 2)\[$GREEN\]]$ \[$nc\]'
-
-# can add \! to prompt to print command number
-
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-# Login message
-uptime
-lastperiodics
-lastbackup 168  # Weekly SuperDuper Backup
-lastbackblaze 3 # Backblaze Status - can take about 3 hours to find new files
-
+# Color man page output
 export GROFF_NO_SGR=1
 man() {
     env LESS_TERMCAP_mb=$'\E[01;31m'   \
@@ -178,3 +88,18 @@ man() {
     LESS_TERMCAP_us=$'\E[04;38;5;146m' \
     man "$@"
 }
+
+# Prompt
+function _update_ps1() {
+    PS1="$(~/Documents/Github/powerline-shell/powerline-shell.py --mode compatible $?)"
+}
+
+if [ "$TERM" != "linux" ]; then
+    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+fi
+
+# Login message
+uptime
+lastperiodics
+lastbackup 168  # Weekly SuperDuper Backup
+lastbackblaze 3 # Backblaze Status - can take about 3 hours to find new files

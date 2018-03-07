@@ -10,7 +10,7 @@ fi
 
 let "DISPLAYTHRESHOLD = $1 * 60 * 60" # Convert to seconds
 
-BBPATH=/Library/Backblaze/bzdata/bzreports
+BBPATH=/Library/Backblaze.bzpkg/bzdata/bzreports
 
 if [[ ! -d "${BBPATH}" ]]; then
 	exit 1

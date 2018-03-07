@@ -1,0 +1,11 @@
+#!/bin/bash
+
+tmux new-session -d -c ~/Documents/Github/shaky-wholesale/shaky-wholesale/
+
+# Run dev server
+tmux split-window -v -c ~/Documents/Github/shaky-wholesale/shaky-wholesale/ 'workon shaky-wholesale'
+
+# Run dev mail server
+tmux split-window -h 'python -m smtpd -n -c DebuggingServer localhost:1025'
+
+tmux attach

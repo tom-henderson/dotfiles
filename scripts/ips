@@ -119,8 +119,11 @@ class Interfaces(object):
 
     def get_external_ip(self):
         url = "http://ip-api.com/json"
-        data = json.loads(urllib2.urlopen(url).read())
-        return data['query']
+        try:
+            data = json.loads(urllib2.urlopen(url).read())
+            return data['query']
+        except:
+            return None
 
     def print_data(self):
         if args.external:
@@ -145,7 +148,10 @@ class Interfaces(object):
                     interface['name'],
                     self.colour_string("Not Connected", 'red')
                 )
-        print "External: {}".format(self.external_ip)
+        print "External: {}".format(
+            self.external_ip if self.external_ip is not None
+            else self.colour_string("Unknown", 'cyan')
+        )
 
     def log_data(self, log_file):
         with open(log_file, 'a+') as log:
